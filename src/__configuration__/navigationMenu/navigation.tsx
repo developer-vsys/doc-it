@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Docs from '../../docs';
-import { MarkdownPage, Resources, Roadmap, ReleaseNotes } from '../../app/pages';
+import { MarkdownPage, Resources, Roadmap, ReleaseNotes, ContactUsPOC } from '../../app/pages';
 import * as Colors from '@pxblue/colors';
 
 export type SimpleNavItem = {
@@ -302,6 +302,11 @@ export const pageDefinitions: SimpleNavItem[] = [
                 title: 'Contact Us',
                 url: '/contactus',
                 component: <MarkdownPage title={'Contact Us'} markdown={Docs.Community.Contact} />,
+            },
+            {
+                title: 'Contact Us POC',
+                url: '/contactuspoc',
+                component: <ContactUsPOC />,
             },
         ],
     },

@@ -34,6 +34,7 @@
         "@pxblue/react-themes": "^5.0.2",
         "axios": "^0.19.2",
         "clsx": "^1.1.0",
+        "emailjs-com": "^2.6.3",
         "placeholder-loading": "^0.2.6",
         "prop-types": "^15.7.2",
         "react": "^16.12.0",
