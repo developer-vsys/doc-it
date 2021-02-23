@@ -7,12 +7,29 @@ import color from 'color';
 
 import { pageDefinitions, SimpleNavItem } from '../../__configuration__/navigationMenu/navigation';
 import { EatonTagline } from '../assets/icons';
-import { Typography, useTheme, useMediaQuery } from '@material-ui/core';
+import { Typography, useTheme, useMediaQuery, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '../redux/reducers';
 import { TOGGLE_DRAWER } from '../redux/actions';
 import { getScheduledSiteConfig } from '../../__configuration__/themes';
 import { DRAWER_WIDTH } from '../shared';
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        navItemRoot: {
+            height: theme.spacing(6),
+            paddingTop: theme.spacing(0.5),
+            paddingBottom: theme.spacing(0.5),
+        },
+        infoListItemRoot: {
+            height: theme.spacing(5),
+        },
+        active: {
+            height: theme.spacing(5),
+            top: 4,
+        },
+    })
+);
 
 export const NavigationDrawer = (): JSX.Element => {
     const drawerOpen = useSelector((state: AppState) => state.app.drawerOpen);
@@ -20,6 +37,7 @@ export const NavigationDrawer = (): JSX.Element => {
     const history = useHistory();
     const [activeRoute, setActiveRoute] = useState(location.pathname);
     const theme = useTheme();
+    const classes = useStyles(theme);
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const dispatch = useDispatch();
     const isLandingPage = history.location.pathname === '/';
@@ -36,6 +54,11 @@ export const NavigationDrawer = (): JSX.Element => {
             convertedItems.push({
                 title: item.title,
                 icon: depth === 0 ? item.icon : undefined,
+                classes: {
+                    root: classes.navItemRoot,
+                    active: classes.active,
+                    infoListItemRoot: classes.infoListItemRoot,
+                },
                 itemID: fullURL,
                 // To add a on hover effect to the ExpandMore chevron for NavItems
                 // with sub pages and a landing page (e.g., Design Patterns)
@@ -75,6 +98,7 @@ export const NavigationDrawer = (): JSX.Element => {
                     dispatch({ type: TOGGLE_DRAWER, payload: !drawerOpen });
                 },
             }}
+            activeItemBackgroundShape={'round'}
             variant={isMobile || isLandingPage ? 'temporary' : 'permanent'}
             nestedBackgroundColor={theme.palette.type === 'light' ? undefined : Colors.darkBlack[500]}
             activeItemBackgroundColor={
@@ -93,6 +117,7 @@ export const NavigationDrawer = (): JSX.Element => {
             itemFontColor={theme.palette.text.primary}
             divider={false}
             activeItem={activeRoute}
+            hidePadding
         >
             <DrawerHeader
                 icon={<PxblueSmall />}
@@ -126,7 +151,7 @@ export const NavigationDrawer = (): JSX.Element => {
                 }
             />
             <DrawerBody>
-                <DrawerNavGroup hidePadding items={menuItems} />
+                <DrawerNavGroup items={menuItems} />
             </DrawerBody>
             <DrawerFooter>
                 <div
