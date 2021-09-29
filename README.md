@@ -6,7 +6,7 @@ Doc-It is the source code for the pxblue.github.io documentation site for Power 
 
 ## Contributing
 
-To contribute to the documentation site, you will need to clone a local copy of the repository:
+To contribute to the documentation site, you will need to clone a local copy of the repository: testing changes
 
 ```
 git clone https://github.com/pxblue/doc-it
